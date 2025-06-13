@@ -31,27 +31,49 @@ async function sendMessage(text) {
   addMessage("user", text);
   messages.push({ role: "user", content: text });
 
-  const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Authorization": "Bearer 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",
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      model: "mistral:instruct",
-      messages: messages
-    })
-  });
+  try {
+    const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": "Bearer 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",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: "mistral:instruct",
+        messages: messages
+      })
+    });
 
-  const data = await res.json();
-  const reply = data.choices[0].message.content;
-  addMessage("assistant", reply);
-  messages.push({ role: "assistant", content: reply });
+    const data = await res.json();
+    if (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) {
+      const reply = data.choices[0].message.content;
+      addMessage("assistant", reply);
+      messages.push({ role: "assistant", content: reply });
+    } else {
+      addMessage("assistant", "क्षमस्व, उत्तर मिळाले नाही. कृपया पुन्हा प्रयत्न करा.");
+      console.log("Unexpected API response:", data);
+    }
+  } catch (error) {
+    addMessage("assistant", "नेटवर्कमध्ये समस्या आली. कृपया नंतर पुन्हा प्रयत्न करा.");
+    console.error("Fetch error:", error);
+  }
 }
+
+// Allow pressing Enter to send
+userInput.addEventListener("keydown", function (e) {
+  if (e.key === "Enter") {
+    sendBtn.click();
+  }
+});
 
 sendBtn.onclick = () => {
   const input = userInput.value.trim();
   if (!input) return;
   userInput.value = "";
   sendMessage(input);
+};
+
+// Start with initial bot message
+window.onload = () => {
+  addMessage("assistant", "नमस्कार! मी तुमचा मानसिक संतुलन सहाय्यक आहे. मूल्यमापन सुरू करूया. कृपया उत्तर देण्यासाठी पर्याय क्रमांक लिहा.");
 };
