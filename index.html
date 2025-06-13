@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html lang="mr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>मानसिक आरोग्य सहाय्यक</title>
-  <link rel="stylesheet" href="style.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>मानसिक संतुलन सहाय्यक</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
-    <h1>मनःस्वास्थ्य सहाय्यक (Mental Health Assistant)</h1>
-    <p>ही वेबसाइट तुमचं मानसिक आरोग्य समजून घेण्यासाठी मदत करेल. सुरुवात करण्यासाठी खाली क्लिक करा.</p>
-    <a href="form.html" class="btn">मूल्यमापन सुरू करा</a>
+    <h1>मानसिक संतुलन सहाय्यक</h1>
+    <div id="user-info"></div>
+    <div id="chat-box" class="chat-box"></div>
+    <div id="options-box"></div>
+    <div class="input-area">
+      <input id="user-input" type="text" placeholder="उत्तर लिहा..." autocomplete="off">
+      <button id="send-btn">पाठवा</button>
+    </div>
   </div>
+  <script src="script.js"></script>
 </body>
 </html>
