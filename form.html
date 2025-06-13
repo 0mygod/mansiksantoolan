@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>तुमची माहिती</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="form-container">
+    <h2>तुमची माहिती</h2>
+    <form id="user-form">
+      <label for="name">नाव:</label>
+      <input type="text" id="name" name="name" required>
+      <label for="contact">संपर्क क्रमांक:</label>
+      <input type="text" id="contact" name="contact" required>
+      <button type="submit">पुढे जा</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('user-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const contact = document.getElementById('contact').value;
+      localStorage.setItem('userName', name);
+      localStorage.setItem('userContact', contact);
+      window.location.href = 'chat.html';
+    });
+  </script>
+</body>
+</html>
